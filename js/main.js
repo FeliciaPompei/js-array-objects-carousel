@@ -50,6 +50,49 @@ const carouselInfo = [
 
 imageElement(carouselInfo.length);
 
+let activeElement = 0;
+const imgWrapper = document.getElementsByClassName('img-wrapper');
+const imgDescriptionWrapper = document.getElementsByClassName('img-description');
+const thumbnailWrapper = document.getElementsByClassName('thumbnail-wrapper');
+
+addClasses (imgWrapper, thumbnailWrapper, imgDescriptionWrapper, activeElement)
+
+
+const previousButton = document.querySelector('.my-previous');
+const nextButton = document.querySelector('.my-next');
+
+// setInterval(timeLapse, 2000, activeElement);
+
+
+nextButton.addEventListener('click', function(){
+    removeClasses (imgWrapper, imgDescriptionWrapper, thumbnailWrapper, activeElement);
+
+    if(activeElement == (5 -1)){
+        activeElement = 0;
+    } else {
+        activeElement++;
+    }
+    
+    addClasses (imgWrapper, imgDescriptionWrapper, thumbnailWrapper, activeElement);
+});
+
+previousButton.addEventListener('click', function(){
+    removeClasses (imgWrapper, imgDescriptionWrapper, thumbnailWrapper, activeElement);
+
+    if(activeElement == 0){
+        activeElement = (5 -1);
+    } else {
+        activeElement--;
+    }
+    
+    addClasses (imgWrapper, imgDescriptionWrapper, thumbnailWrapper, activeElement);
+});
+
+
+/**
+ * 
+ * FUNCTIONS
+ */
 
 function imageElement(max){
     for (let i = 0; i < max; i++){
@@ -74,4 +117,31 @@ function imageElement(max){
     }
 }
 
+function removeClasses (imageWrapper, imgDescriptionWrapper, thumbnailWrapper, active){
 
+    imageWrapper[active].classList.remove('d-block');
+    imgDescriptionWrapper[active].classList.remove('d-block');
+    thumbnailWrapper[active].classList.remove('thumbnail-active');
+}
+
+
+function addClasses (imageWrapper, imgDescriptionWrapper, thumbnailWrapper, active){
+    imageWrapper[active].classList.add('d-block');
+    imgDescriptionWrapper[active].classList.add('d-block');
+    thumbnailWrapper[active].classList.add('thumbnail-active');
+
+}
+
+// function timeLapse (active){
+
+//     removeClasses (imgWrapper, imgDescriptionWrapper, thumbnailWrapper, activeElement);
+
+//     for(let i = 0; i < 5; i++){
+//         if(active == (5 -1)){
+//             active = 0;
+//         } else {
+//             active++;
+//         }
+//     }
+//     addClasses (imgWrapper, imgDescriptionWrapper, thumbnailWrapper, activeElement);
+// }
