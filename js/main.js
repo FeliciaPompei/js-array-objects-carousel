@@ -1,19 +1,3 @@
-/**
- *
- *
- *
-
-Bonus 1:
-Sperimentiamo attraverso l'uso delle timing functions anche una funzionalità di scorrimento al nostro carosello:
-al click di un bottone o già dall'inizio possiamo far partire, ad intervalli di tempo a piacere, lo scorrimento delle immagini disponibili nel carosello stesso.
-
-Bonus 2:
-E se volessi un bottone per invertire la "direzione" del carosello?
-
- *
- */
-
-
 const carouselInfo = [
     {
         image : 'http://cdn.shopify.com/s/files/1/0560/8744/5712/products/EnTL8E7XUAEFyp7_1200x1200.jpg?v=1633707699',
@@ -54,43 +38,39 @@ const imgDescriptionWrapper = document.getElementsByClassName('img-description')
 const thumbnailWrapper = document.getElementsByClassName('thumbnail-wrapper');
 const previousButton = document.querySelector('.my-previous');
 const nextButton = document.querySelector('.my-next');
+document.getElementById('my-after-carousel').innerHTML = 
+`
+<button class ="btn btn-success">Reverse Image</button>
+`;
 
 
-addClasses (imgWrapper, thumbnailWrapper, imgDescriptionWrapper, activeElement);
-
-// setTimeout(removeClasses, 2000, imgWrapper, thumbnailWrapper, imgDescriptionWrapper, activeElement);
-// setTimeout(addClasses, 3000, imgWrapper, thumbnailWrapper, imgDescriptionWrapper, activeElement);
+nextImage ();
 
 // EventListener
 nextButton.addEventListener('click', function(){
-    removeClasses (imgWrapper, imgDescriptionWrapper, thumbnailWrapper, activeElement);
-
-    if(activeElement == (5 -1)){
-        activeElement = 0;
-    } else {
-        activeElement++;
-    }
-    
-    addClasses (imgWrapper, imgDescriptionWrapper, thumbnailWrapper, activeElement);
+    nextImage();
 });
 
 previousButton.addEventListener('click', function(){
-    removeClasses (imgWrapper, imgDescriptionWrapper, thumbnailWrapper, activeElement);
-
-    if(activeElement == 0){
-        activeElement = (5 -1);
-    } else {
-        activeElement--;
-    }
-    
-    addClasses (imgWrapper, imgDescriptionWrapper, thumbnailWrapper, activeElement);
+    previousImage();
 });
+
+document.querySelector('button').addEventListener('click', function(){
+    setInterval (previousImage, 2000);
+    clearInterval(clockwiseCarousel);
+})
+
+// setInterval
+
+const clockwiseCarousel = setInterval (nextImage, 2000);
+
 
 
 
 /**
  * 
  * FUNCTIONS
+ * 
  */
 
 function imageElement(max){
@@ -116,30 +96,38 @@ function imageElement(max){
     }
 }
 
-function removeClasses (imageWrapper, imgDescriptionWrapper, thumbnailWrapper, active){
 
-    imageWrapper[active].classList.remove('d-block');
-    imgDescriptionWrapper[active].classList.remove('d-block');
-    thumbnailWrapper[active].classList.remove('thumbnail-active');
-}
+function nextImage (){
+    imgWrapper[activeElement].classList.remove('d-block');
+    imgDescriptionWrapper[activeElement].classList.remove('d-block');
+    thumbnailWrapper[activeElement].classList.remove('thumbnail-active');
 
-
-function addClasses (imageWrapper, imgDescriptionWrapper, thumbnailWrapper, active){
-    imageWrapper[active].classList.add('d-block');
-    imgDescriptionWrapper[active].classList.add('d-block');
-    thumbnailWrapper[active].classList.add('thumbnail-active');
-
-}
-
-setInterval (function timeLapse (){
-    let active = 0;
-    for (let i = 0; i < 5; i++){
-        removeClasses (imgWrapper, imgDescriptionWrapper, thumbnailWrapper, active);
-        if(active == (5 -1)){
-            active = 0;
-        } else {
-            active++;
-        }
-        addClasses (imgWrapper, imgDescriptionWrapper, thumbnailWrapper, active);
+    if(activeElement == (carouselInfo.length -1)){
+        activeElement = 0;
+    } else {
+        activeElement++;
     }
-}, 3000)
+    
+    imgWrapper[activeElement].classList.add('d-block');
+    imgDescriptionWrapper[activeElement].classList.add('d-block');
+    thumbnailWrapper[activeElement].classList.add('thumbnail-active');
+}
+
+function previousImage(){
+    imgWrapper[activeElement].classList.remove('d-block');
+    imgDescriptionWrapper[activeElement].classList.remove('d-block');
+    thumbnailWrapper[activeElement].classList.remove('thumbnail-active');
+
+    if(activeElement == 0){
+        activeElement = (carouselInfo.length -1);
+    } else {
+        activeElement--;
+    }
+    
+    imgWrapper[activeElement].classList.add('d-block');
+    imgDescriptionWrapper[activeElement].classList.add('d-block');
+    thumbnailWrapper[activeElement].classList.add('thumbnail-active');
+}
+
+
+
