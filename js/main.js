@@ -50,20 +50,20 @@ const carouselInfo = [
 
 imageElement(carouselInfo.length);
 
+
+// Variabili
 let activeElement = 0;
 const imgWrapper = document.getElementsByClassName('img-wrapper');
 const imgDescriptionWrapper = document.getElementsByClassName('img-description');
 const thumbnailWrapper = document.getElementsByClassName('thumbnail-wrapper');
+const previousButton = document.querySelector('.my-previous');
+const nextButton = document.querySelector('.my-next');
+
 
 addClasses (imgWrapper, thumbnailWrapper, imgDescriptionWrapper, activeElement)
 
 
-const previousButton = document.querySelector('.my-previous');
-const nextButton = document.querySelector('.my-next');
-
-// setInterval(timeLapse, 2000, activeElement);
-
-
+// EventListener
 nextButton.addEventListener('click', function(){
     removeClasses (imgWrapper, imgDescriptionWrapper, thumbnailWrapper, activeElement);
 
@@ -88,6 +88,7 @@ previousButton.addEventListener('click', function(){
     addClasses (imgWrapper, imgDescriptionWrapper, thumbnailWrapper, activeElement);
 });
 
+// setTimeout(timeLapse, 2000, activeElement);
 
 /**
  * 
@@ -134,14 +135,12 @@ function addClasses (imageWrapper, imgDescriptionWrapper, thumbnailWrapper, acti
 
 // function timeLapse (active){
 
-//     removeClasses (imgWrapper, imgDescriptionWrapper, thumbnailWrapper, activeElement);
-
-//     for(let i = 0; i < 5; i++){
+//         removeClasses (imgWrapper, imgDescriptionWrapper, thumbnailWrapper, activeElement);
 //         if(active == (5 -1)){
 //             active = 0;
 //         } else {
 //             active++;
 //         }
-//     }
-//     addClasses (imgWrapper, imgDescriptionWrapper, thumbnailWrapper, activeElement);
+//         addClasses (imgWrapper, imgDescriptionWrapper, thumbnailWrapper, activeElement);
+
 // }
