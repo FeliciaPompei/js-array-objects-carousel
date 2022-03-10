@@ -56,8 +56,10 @@ const previousButton = document.querySelector('.my-previous');
 const nextButton = document.querySelector('.my-next');
 
 
-addClasses (imgWrapper, thumbnailWrapper, imgDescriptionWrapper, activeElement)
+addClasses (imgWrapper, thumbnailWrapper, imgDescriptionWrapper, activeElement);
 
+// setTimeout(removeClasses, 2000, imgWrapper, thumbnailWrapper, imgDescriptionWrapper, activeElement);
+// setTimeout(addClasses, 3000, imgWrapper, thumbnailWrapper, imgDescriptionWrapper, activeElement);
 
 // EventListener
 nextButton.addEventListener('click', function(){
@@ -84,7 +86,7 @@ previousButton.addEventListener('click', function(){
     addClasses (imgWrapper, imgDescriptionWrapper, thumbnailWrapper, activeElement);
 });
 
-// setTimeout(timeLapse, 2000, activeElement);
+
 
 /**
  * 
@@ -129,14 +131,15 @@ function addClasses (imageWrapper, imgDescriptionWrapper, thumbnailWrapper, acti
 
 }
 
-// function timeLapse (active){
-
-//         removeClasses (imgWrapper, imgDescriptionWrapper, thumbnailWrapper, activeElement);
-//         if(active == (5 -1)){
-//             active = 0;
-//         } else {
-//             active++;
-//         }
-//         addClasses (imgWrapper, imgDescriptionWrapper, thumbnailWrapper, activeElement);
-
-// }
+setInterval (function timeLapse (){
+    let active = 0;
+    for (let i = 0; i < 5; i++){
+        removeClasses (imgWrapper, imgDescriptionWrapper, thumbnailWrapper, active);
+        if(active == (5 -1)){
+            active = 0;
+        } else {
+            active++;
+        }
+        addClasses (imgWrapper, imgDescriptionWrapper, thumbnailWrapper, active);
+    }
+}, 3000)
