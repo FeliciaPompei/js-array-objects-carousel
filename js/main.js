@@ -42,6 +42,7 @@ document.getElementById('my-after-carousel').innerHTML =
 `
 <button class ="btn btn-success">Reverse Image</button>
 `;
+let isForwardScroll = true;
 
 
 nextImage ();
@@ -56,15 +57,20 @@ previousButton.addEventListener('click', function(){
 });
 
 document.querySelector('button').addEventListener('click', function(){
-    setInterval (previousImage, 2000);
-    clearInterval(clockwiseCarousel);
+    isForwardScroll = false;
 })
 
 // setInterval
 
-const clockwiseCarousel = setInterval (nextImage, 2000);
 
-
+let autoScroll = setInterval(function(){
+    if (isForwardScroll == true) {
+        nextButton.click();
+    }
+    else {
+        previousButton.click();
+    }
+}, 4000);
 
 
 /**
